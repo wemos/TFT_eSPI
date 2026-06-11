@@ -52,17 +52,14 @@ VSPI = 3, uses SPI3
 ESP32-S2:
 FSPI = 1, uses SPI2
 HSPI = 2, uses SPI3
-VSPI not defined
+VSPI not defined so have made VSPI = HSPI
 
-ESP32 C3:
-FSPI = 0, uses SPI2 ???? To be checked
-HSPI = 1, uses SPI3 ???? To be checked
-VSPI not defined
-
-For ESP32/S2/C3/S3:
-SPI1_HOST = 0
-SPI2_HOST = 1
-SPI3_HOST = 2
+For ESP32 C3, C5, C6, H2, P4, S2, S3:
+(C3 only SPI2 port is available, SPI0 & SPI1 are dedicated to internal flash memory)
+Confusingly in ESP-IDF enumerations are:
+SPI1_HOST = 0,  ///< actually SPI0
+SPI2_HOST = 1,  ///< actually SPI1
+SPI3_HOST = 2,  ///< actually SPI2
 */
 
 // ESP32 specific SPI port selection
@@ -80,7 +77,7 @@ SPI3_HOST = 2
   #elif CONFIG_IDF_TARGET_ESP32S2
     #define SPI_PORT 2 //FSPI(ESP32 S2)
   #elif CONFIG_IDF_TARGET_ESP32S3
-    #define SPI_PORT FSPI
+    #define SPI_PORT 2
   #endif
 #endif
 

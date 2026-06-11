@@ -1,10 +1,15 @@
 A ["Discussions"](https://github.com/Bodmer/TFT_eSPI/discussions) facility has been added for Q&A etc. Use the ["Issues"](https://github.com/Bodmer/TFT_eSPI/issues) tab only for problems with the library. Thanks!
+
+I have setup a Ko-fi account so you can ["buy me a coffee!"](https://ko-fi.com/Bodmer) This encourages me to add new features and capabiities to TFT_eSPI.
+
 # News
-1. The Create_font Processing sketch has been updated to automatically create a complete C header file. The automatic opening of the font folder can also be disabled within the Processing sketch. (Thanks to Pierre-Loup Martin).
+1. The ESP32 S3 DMA capability now works with ESP-IDF versions greater than 2.0.14. This has been tested with the Arduino 3.3.6 board package. ChatGPT gave me a clue for the change (use SPI_DMA_CH_AUTO for the register selection) but the AI generated response did contain duff info regarding some (mostly harmless) register bit settings needed!
 
-2. New board setup files have been added for the Seeed XIAO with round display, LilyGo T-Embed S3, LilyGo_T_QT_Pro_S3, ESP32 S3 Box and ESP32_S3_Box_Lite. The "RPi" interface style boards are now supported with the ESP32 S3.
+2. The Create_font Processing sketch has been updated to automatically create a complete C header file. The automatic opening of the font folder can also be disabled within the Processing sketch. (Thanks to Pierre-Loup Martin).
 
-3. New functions have been added to draw smooth (antialiased) arcs, circles, and rounded rectangle outlines. New sketches are provided in the "Smooth Graphics" examples folder. Arcs can be drawn with or without anti-aliasing (which will then render faster). The arc ends can be straight or rounded. The arc drawing algorithm uses an optimised fixed point sqrt() function to improve performance on processors that do not have a hardware Floating Point Unit (e.g. RP2040). Here are two demo images, on the left smooth (anti-aliased) arcs with rounded ends, the image to the right is the same resolution (grabbed from the same 240x240 TFT) with the smoothing diasbled (no anti-aliasing):
+3. New board setup files have been added for the Seeed XIAO with round display, LilyGo T-Embed S3, LilyGo_T_QT_Pro_S3, ESP32 S3 Box and ESP32_S3_Box_Lite. The "RPi" interface style boards are now supported with the ESP32 S3.
+
+4. New functions have been added to draw smooth (antialiased) arcs, circles, and rounded rectangle outlines. New sketches are provided in the "Smooth Graphics" examples folder. Arcs can be drawn with or without anti-aliasing (which will then render faster). The arc ends can be straight or rounded. The arc drawing algorithm uses an optimised fixed point sqrt() function to improve performance on processors that do not have a hardware Floating Point Unit (e.g. RP2040). Here are two demo images, on the left smooth (anti-aliased) arcs with rounded ends, the image to the right is the same resolution (grabbed from the same 240x240 TFT) with the smoothing diasbled (no anti-aliasing):
 
       ![arcs](https://github.com/Bodmer/Github-images/blob/main/aa_arc_240x240.png)  ![pixelated_arcs](https://github.com/Bodmer/Github-images/blob/main/no_aa_arc_240x240.png)
 
@@ -12,17 +17,17 @@ A ["Discussions"](https://github.com/Bodmer/TFT_eSPI/discussions) facility has b
  
       ![arcs](https://github.com/Bodmer/Github-images/blob/main/xarc_meters_320x240.png)
 
-4. An excellent new compatible library is available which can render TrueType fonts on a TFT screen (or into a sprite). This has been developed by [takkaO](https://github.com/takkaO/OpenFontRender). The library provides access to compact font files, with fully scaleable anti-aliased glyphs. Left, middle and right justified text can also be printed to the screen. I have added TFT_eSPI specific examples to the OpenFontRender library and tested on RP2040 and ESP32 processors, the ESP8266 does not have sufficient RAM due to the glyph render complexity. Here is a demo screen where a single 12kbyte font file binary was used to render fully anti-aliased glyphs of gradually increasing size on a 320x480 TFT screen:
+5. An excellent new compatible library is available which can render TrueType fonts on a TFT screen (or into a sprite). This has been developed by [takkaO](https://github.com/takkaO/OpenFontRender). The library provides access to compact font files, with fully scaleable anti-aliased glyphs. Left, middle and right justified text can also be printed to the screen. I have added TFT_eSPI specific examples to the OpenFontRender library and tested on RP2040 and ESP32 processors, the ESP8266 does not have sufficient RAM due to the glyph render complexity. Here is a demo screen where a single 12kbyte font file binary was used to render fully anti-aliased glyphs of gradually increasing size on a 320x480 TFT screen:
 
       ![ttf_font_demo](https://i.imgur.com/bKkilIb.png)
 
-5. New GUI examples have been added for sliders, buttons, graphs and meters. These examples require a new support library here:
+6. New GUI examples have been added for sliders, buttons, graphs and meters. These examples require a new support library here:
 
    [TFT_eWidget](https://github.com/Bodmer/TFT_eWidget)
 
-6. Support has been added in v2.4.70 for the RP2040 with 16-bit parallel displays. This has been tested and the screen update performance is very good (4ms to clear 320 x 480 screen with HC8357C). The use of the RP2040 PIO makes it easy to change the write cycle timing for different displays. DMA with 16-bit transfers is also supported.
+7. Support has been added in v2.4.70 for the RP2040 with 16-bit parallel displays. This has been tested and the screen update performance is very good (4ms to clear 320 x 480 screen with HC8357C). The use of the RP2040 PIO makes it easy to change the write cycle timing for different displays. DMA with 16-bit transfers is also supported.
 
-7. Support for the ESP32-S2, ESP32-S3 and ESP32-C3 has been added (DMA only on ESP32 S3 at the moment). Tested with v2.0.3 RC1 of the ESP32 board package. Example setups:
+8. Support for the ESP32-S2, ESP32-S3 and ESP32-C3 has been added (DMA only on ESP32 S3 at the moment). Tested with v2.0.3 RC1 of the ESP32 board package. Example setups:
 
       [Setup70_ESP32_S2_ILI9341.h](https://github.com/Bodmer/TFT_eSPI/blob/master/User_Setups/Setup70_ESP32_S2_ILI9341.h)
       
@@ -39,19 +44,9 @@ A ["Discussions"](https://github.com/Bodmer/TFT_eSPI/discussions) facility has b
 
 Note: background rendering for Smooth fonts is also now available when using the print stream e.g. with: tft.println("Hello World");
 
-9. New anti-aliased graphics functions to draw lines, wedge shaped lines, circles and rounded rectangles. [Examples are included](https://github.com/Bodmer/TFT_eSPI/tree/master/examples/Smooth%20Graphics). Examples have also been added to [display PNG compressed images](https://github.com/Bodmer/TFT_eSPI/tree/master/examples/PNG%20Images) (note: requires ~40kbytes RAM).
+10. New anti-aliased graphics functions to draw lines, wedge shaped lines, circles and rounded rectangles. [Examples are included](https://github.com/Bodmer/TFT_eSPI/tree/master/examples/Smooth%20Graphics). Examples have also been added to [display PNG compressed images](https://github.com/Bodmer/TFT_eSPI/tree/master/examples/PNG%20Images) (note: requires ~40kbytes RAM).
 
-10. Users of PowerPoint experienced with running macros may be interested in the [pptm sketch generator here](https://github.com/Bodmer/PowerPoint_to_sketch), this converts graphics and tables drawn in PowerPoint slides into an Arduino sketch that renders the graphics on a 480x320 TFT. This is based on VB macros [created by Kris Kasprzak here](https://github.com/KrisKasprzak/Powerpoint-ILI9341_t3).
-
-11. The library contains two new functions for rectangles filled with a horizontal or vertical coloured gradient:
-
-      tft.fillRectHGradient(x, y, w, h, color1, color2);
-  
-      tft.fillRectVGradient(x, y, w, h, color1, color2);
-      
-      ![Gradient](https://i.imgur.com/atR0DmP.png)
-
-12. The RP2040 8-bit parallel interface uses the PIO. The PIO now manages the "setWindow" and "block fill" actions, releasing the processor for other tasks when areas of the screen are being filled with a colour. The PIO can optionally be used for SPI interface displays if #define RP2040_PIO_SPI is put in the setup file. Touch screens and pixel read operations are not supported when the PIO interface is used.
+11. The RP2040 8-bit parallel interface uses the PIO. The PIO now manages the "setWindow" and "block fill" actions, releasing the processor for other tasks when areas of the screen are being filled with a colour. The PIO can optionally be used for SPI interface displays if #define RP2040_PIO_SPI is put in the setup file. Touch screens and pixel read operations are not supported when the PIO interface is used.
 The RP2040 PIO features only work with [Earle Philhower's board package](https://github.com/earlephilhower/arduino-pico), NOT the Arduino Mbed version.
 
 The use of PIO for SPI allows the RP2040 to be over-clocked (up to 250MHz works on my boards) in Earle's board package whilst still maintaining high SPI clock rates.
@@ -88,7 +83,7 @@ The library supports the following interface types for these processors:
 
 For other (generic) processors only SPI interface displays are supported and the slower Arduino SPI library functions are used by the library. Higher clock speed processors such as used for the Teensy 3.x and 4.x boards will still provide a very good performance with the generic Arduino SPI functions.
 
-4 wire SPI means the display must have SPI interface comaptible signals and a "Data/Command" control signal, this signal line is sometimes labelled DC, RS or A0. 
+4 wire SPI means the display must have SPI interface compatible signals and a "Data/Command" control signal, this signal line is sometimes labelled DC, RS or A0. 
 
 Due to lack of GPIO pins the 8-bit parallel interface is NOT supported on the ESP8266. 8-bit parallel interface TFTs  (e.g. UNO format mcufriend shields) can used with the STM32Fxxx Nucleo 64/144 range or the UNO format ESP32 (see below for ESP32).
 
@@ -212,6 +207,12 @@ This is an [example setup file](https://github.com/Bodmer/TFT_eSPI/blob/master/U
 
 If the display board is fitted with a resistance based touch screen then this can be used by performing the modifications described here and the fork of the Adafruit library:
 https://github.com/s60sc/Adafruit_TouchScreen
+
+# Using an SPI display and SD card at the same time on Arduino
+
+If you wish to use this library and an SD card on the same SPI bus you must ensure that _TFT_MISO_, _TFT_MOSI_ and _TFT_SCLK_ are explicitly defined in your User_setup.h file, even if you are using the default SPI pins for your board.
+
+Failure to declare these pins explicitly may prevent your SD card from being usable after display initialisation.
 
 # Tips
 If you load a new copy of TFT_eSPI then it will overwrite your setups if they are kept within the TFT_eSPI folder. One way around this is to create a new folder in your Arduino library folder called "TFT_eSPI_Setups". You then place your custom setup.h files in there. After an upgrade simply edit the User_Setup_Select.h file to point to your custom setup file e.g.:
